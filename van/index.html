@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>  
+        <script>
+            //este script só aceita números inteiros
+            jQuery('#alunos').mask('Z#', {
+            translation: {
+              'Z': {
+                pattern: /[1-9]/
+              }
+            }
+          });
+
+          //método para impedir que o usuário submeta o formulário pelo enter
+          $(document).ready(function() {
+            $(window).keydown(function(event){
+              if(event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+              }
+            });
+          });
+
+          //cria inputs dinamicamente
+          function create(){
+            let qtd_inputs = document.getElementById("alunos").value;
+            //se o usuário não tiver preenchido
+            if(!qtd_inputs){
+              alert("Gentileza informar a quantidade de alunos");
+            }else{
+              //cria o restante do formulário
+              let formulario = document.getElementById("formulario");
+              let aviso = document.createElement("label");
+              aviso.setAttribute("style","font-size:14px;font-weight: bold;display:block;margin-top:10px");
+              aviso.appendChild(document.createTextNode("Preencha o nome, a região (N,S,L,O) e a distância (somente números) do aluno(a)"));
+              formulario.appendChild(aviso);
+
+              for(let i = 0; i < qtd_inputs;i++){
+                //criar a div para cada aluno
+                let div = document.createElement("div");
+                div.setAttribute("class","aluno");
+                div.setAttribute("style","margin-top:10px;font-weight:bold");
+                //criar input para cada aluno
+                let alunos = document.createElement("input");
+                alunos.setAttribute("type","text");
+                alunos.setAttribute("name","alunos" + i);
+                alunos.setAttribute("id","alunos" + i);
+                alunos.setAttribute("required","true");
+                alunos.setAttribute("style","display:block;margin-top:5px")
+                alunos.setAttribute("placeholder","Ex: José S 3");
+                //criar o rótulo do input
+                let label = document.createElement("label");
+                label.setAttribute("for","alunos" + i);
+                label.appendChild(document.createTextNode("Aluno " + (i+1)));
+                div.appendChild(label);
+                div.appendChild(alunos);
+                //adicionando elementos no formulário
+                formulario.appendChild(div);
+                
+              }
+              //adicionar botão de submit
+              let submit = document.createElement("input");
+              submit.setAttribute("type","submit");
+              submit.setAttribute("value","Enviar");
+              submit.setAttribute("style","margin-top:10px");
+              formulario.appendChild(submit);
+              
+            }
+          }
+
+        </script>
+    </head>
+    <body>
+        <form method="post" action="calculo.php" id="formulario">
+            <label for="alunos">Insira a quantidade de alunos e clique em preencher dados</label><br><br>
+            <input type="text" id="alunos" name="alunos" required><br><br>
+            <input type="button" onclick="create()" value="Preencher dados">
+        </form>
+    </body>
+    
+
+
+</html>
