@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>  
+        <script>
+            //este script só aceita números inteiros
+            jQuery('#dias').mask('Z#', {
+            translation: {
+              'Z': {
+                pattern: /[1-9]/
+              }
+            }
+          });
+        </script>
+    </head>
+    <body>
+        <form method="post" action="calculo.php">
+            <label for="testes">Insira a quantidade de testes</label><br><br>
+            <input type="text" id="testes" name="testes" required><br><br>
+            <input type="submit" value="Enviar">
+        </form>
+    </body>
+    
+
+
+</html>
